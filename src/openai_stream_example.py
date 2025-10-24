@@ -1,3 +1,5 @@
+import json
+
 from dotenv import load_dotenv
 from openai import OpenAI
 from pydantic import BaseModel, Field
@@ -19,5 +21,5 @@ with client.chat.completions.stream(
     response_format=Recipe,
 ) as stream:
     for event in stream:
-        if hasattr(event, "parsed"):
-            print(event.parsed, flush=True)
+        if hasattr(event, "parsed") and event.parsed is not None:
+            print(json.dumps(event.parsed, ensure_ascii=False), flush=True)

@@ -1,3 +1,4 @@
+import json
 from typing import Annotated
 
 from dotenv import load_dotenv
@@ -18,7 +19,7 @@ model = init_chat_model(
     reasoning_effort="minimal",
 )
 
-model_with_structure = model.with_structured_output(Recipe, method="json_schema")
+model_with_structure = model.with_structured_output(Recipe)
 
 for chunk in model_with_structure.stream("カレーのレシピを考えて"):
-    print(chunk, flush=True)
+    print(json.dumps(chunk, ensure_ascii=False), flush=True)

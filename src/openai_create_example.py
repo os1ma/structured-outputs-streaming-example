@@ -1,3 +1,5 @@
+import json
+
 from dotenv import load_dotenv
 from langchain_core.output_parsers import JsonOutputParser
 from openai import OpenAI
@@ -41,4 +43,4 @@ for chunk in response:
     if chunk_content:
         content += chunk_content
         parsed_content = output_parser.invoke(content)
-        print(parsed_content, flush=True)
+        print(json.dumps(parsed_content, ensure_ascii=False), flush=True)
